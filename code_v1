@@ -1,0 +1,59 @@
+int trig = 9; 
+int echo = 10;
+int red = 11; 
+int yellow = 12;
+int green = 13;
+
+int full = 6;
+int half = 12;
+int empty = 18;
+
+long duration = 0; 
+int cm = 0; 
+int in = 0;
+
+void setup()
+{
+  pinMode(trig, OUTPUT); 
+  pinMode(echo, INPUT);
+  pinMode(red, OUTPUT); 
+  pinMode(yellow, OUTPUT);
+  pinMode(green, OUTPUT); 
+  Serial.begin(9600); 
+  Serial.println("Serial Started..."); 
+}
+
+void loop()
+{
+ 
+  digitalWrite(trig, LOW); 
+  digitalWrite(trig, HIGH); 
+  digitalWrite(trig, LOW); 
+  
+  int duration = pulseIn (echo, HIGH);
+  cm = duration*0.034/2;
+  in = duration*0.0133/2;
+  
+  Serial.println(in); 
+  
+  if (in >= empty) {
+    digitalWrite(green, HIGH); 
+    digitalWrite(yellow, LOW); 
+    digitalWrite(red, LOW); 
+    delay(1000); 
+  }
+  
+   else if (in < empty && in > half){
+    digitalWrite(green, LOW); 
+    digitalWrite(yellow, HIGH); 
+    digitalWrite(red, LOW); 
+    delay(600); 
+  }
+  
+   else if (in <= full ){
+    digitalWrite(green, LOW); 
+    digitalWrite(yellow, LOW); 
+    digitalWrite(red, HIGH); 
+    delay(300); 
+  }
+}
